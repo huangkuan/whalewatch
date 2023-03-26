@@ -1,0 +1,25 @@
+{
+  "name": "whalewatch",
+  "version": "1.0.0",
+  "description": "watching the on-chain whales #nothing yet",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huangkuan/whalewatch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huangkuan/whalewatch/issues"
+  },
+  "homepage": "https://github.com/huangkuan/whalewatch#readme",
+  "dependencies": {
+    "csv-parse": "^5.3.6",
+    "dotenv": "^16.0.3",
+    "got": "^12.6.0"
+  }
+}
