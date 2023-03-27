@@ -4,8 +4,8 @@ To have a simple UI that displays what the smart wallets are buying or selling r
    b.In the forseeable future, we can monitor the swaps of Dexes to automatically collect addresses.
 2. We need a way to tell the PnL of a specific wallet
 3. Based on 2, we then can tell what tokens the smart wallet is best at trading.
-4.  1) Based on 3, we then can monitor the trading behavior of a cluster of smart wallets.
-    2) In the forseeable future, we can also include large amount of token buy or sell even if the wallets are not labeled as "smart".
+4. a. Based on 3, we then can monitor the trading behavior of a cluster of smart wallets.
+   b. In the forseeable future, we can also include large amount of token buy or sell even if the wallets are not labeled as "smart".
 5. If a user sees a large enough cluster of smart wallets buy or sell a token, the user can follow the same trade.
 
 
