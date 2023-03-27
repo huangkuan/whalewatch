@@ -1,9 +1,7 @@
-# whalewatch
-
-## Prototype plan:
+# Whalewatch Prototype plan:
 To have a simple UI that displays what the smart wallets are buying or selling right now. 
-1. 1)As a start, we will collect smart wallet addresses from varioius resources such as known twitter accounts, Nansen and Etherscan.
-   2)In the forseeable future, we can monitor the swaps of Dexes to automatically collect addresses.
+1. a.As a start, we will collect smart wallet addresses from varioius resources such as known twitter accounts, Nansen and Etherscan.
+   b.In the forseeable future, we can monitor the swaps of Dexes to automatically collect addresses.
 2. We need a way to tell the PnL of a specific wallet
 3. Based on 2, we then can tell what tokens the smart wallet is best at trading.
 4.  1) Based on 3, we then can monitor the trading behavior of a cluster of smart wallets.
