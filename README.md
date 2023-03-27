@@ -20,15 +20,4 @@ There are lots of directions we can go. We can either expand that algorithm onto
 Rate limit of Etherscan API: 5 calls per second, 100k calls per day
 #index.js file is the starting point
 
-Include below in an .env file
-'''
-ES_API_KEY  = D34PXUZ7YRGSW1GFPQNCUF1SA7VU9TUQ1Q
-ES_API_MAIN = https://api.etherscan.io/api?
-AT_API_KEY          = E65X7P422HUZ7J2CRMYCTUPMZ7P6JYJHUW
-AT_API_MAIN         = https://api.arbiscan.io/api?
-ES_BLOCKRANGE       = 'startblock=16887475'
-AT_BLOCKRANGE       = 'startblock=72825000'
-API_ERCTRANSFER     = 'module=account&action=tokentx'
-'''
-
-#nothing yet
+Reach out to me to get a local copy of the .env file
