@@ -17,12 +17,12 @@ const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/TE7D01TSS/B050Y5
 
 const chainId	            = parseInt(process.argv[2])
 const csv_path              = process.argv[3]
-let BLOCKS_PER_15M           = 0
+let BLOCKS_PER_10M          = 0
 
 if (chainId == 42161){
-    BLOCKS_PER_15M = 10000
+    BLOCKS_PER_10M = 7000
 }else if(chainId == 1){
-    BLOCKS_PER_15M = 100
+    BLOCKS_PER_10M = 70
 }else{
     console.log("Unknown chain id.")
     process.exit(-1)
@@ -51,10 +51,10 @@ for (let i=0; i<addressWatched.length; i++){
 }
 
 async function run(chainId, addr, blockNum) {
-    let endBlock = blockNum - BLOCKS_PER_15M
+    let endBlock = blockNum - BLOCKS_PER_10M
     console.log("Downloading blocks:" + endBlock + " -- " + blockNum)
     
-    let r = await getERC20Transfers(chainId, addr['addr'], blockNum - BLOCKS_PER_15M)
+    let r = await getERC20Transfers(chainId, addr['addr'], blockNum - BLOCKS_PER_10M)
     if (r.length <=0)
         return
 
