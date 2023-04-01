@@ -17,12 +17,12 @@ const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/TE7D01TSS/B050Y5
 
 const chainId	            = parseInt(process.argv[2])
 const csv_path              = process.argv[3]
-let blocks_per_15m        = 0
+let BLOCKS_PER_15M           = 0
 
 if (chainId == 42161){
-    blocks_per_15m = 10000
+    BLOCKS_PER_15M = 10000
 }else if(chainId == 1){
-    blocks_per_15m = 100
+    BLOCKS_PER_15M = 100
 }else{
     console.log("Unknown chain id.")
     process.exit(-1)
@@ -43,20 +43,23 @@ console.log("Labeled addresses loaded")
 const addressWatched = loadWatchedWallets(csv_path)
 console.log("Watched addresses loaded")
 
-for (let addr of addressWatched){
-    let endBlock = blockNum - blocks_per_15m
-    console.log("Downloading blocks:" + endBlock + " -- " + blockNum)
-    let r = await getERC20Transfers(chainId, addr, blockNum - blocks_per_15m)
-    if (r.length <=0){
-        console.log("empty result")
-        continue
-    }
-    let resultStr = parseAPIResponse(chainId, r, addressLabelsMap, addr)
-    //console.log(resultStr)
-
-    await axios.post(SLACK_ALERT_CHANNEL, {
-       text: resultStr
-    })
-    
+for (let i=0; i<addressWatched.length; i++){
+    //To bypass the 5 requests/sec rate limit, we put a 250ms pause in between API calls
+    setTimeout(() => {
+        run(chainId, addressWatched[i], blockNum)
+    }, i*250)
 }
 
+async function run(chainId, addr, blockNum) {
+    let endBlock = blockNum - BLOCKS_PER_15M
+    console.log("Downloading blocks:" + endBlock + " -- " + blockNum)
+    
+    let r = await getERC20Transfers(chainId, addr['addr'], blockNum - BLOCKS_PER_15M)
+    if (r.length <=0)
+        return
+
+    let resultStr = parseAPIResponse(chainId, r, addressLabelsMap, addr)
+    //console.log(resultStr)
+    await axios.post(SLACK_ALERT_CHANNEL, {text: resultStr})
+
+}

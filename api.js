@@ -12,7 +12,7 @@ export function loadWatchedWallets(p){
     const rows = content.split('\n')
     let addressArr = []
     for (let r of rows){
-        addressArr.push(r.split(",")[0])
+        addressArr.push({"addr":r.split(",")[0], "label":r.split(",")[1]})
     }
     return addressArr
 }
@@ -39,16 +39,12 @@ export async function getERC20Transfers(chainId, address, startBlock, pageNum=1)
     try{
         let ret = await got.post(url).json()
         //console.log(ret)
-        if (ret['status'] != 1){
-            console.log("API Error: " + ret['result'])
-            return []
-        }
-
         return ret['result']
     }catch(e){
         console.log('Unknown API ERROR')
         return []
     }
+    
 }
 
 //Format response for Slack
@@ -64,9 +60,9 @@ export function parseAPIResponse(chainId, data, addressMap, wallet){
     }
 
     if (chainId == 42161){
-        parsedRet = "https://arbiscan.io/address/" + wallet + "\n"
+        parsedRet = wallet['label'] + " https://arbiscan.io/address/" + wallet['addr'] + "\n"
     }else if (chainId == 1){
-        parsedRet = "https://etherscan.io/address" + wallet + "\n"
+        parsedRet = wallet['label'] + " https://etherscan.io/address" + wallet['addr'] + "\n"
     }else{
         console.log("Invalid chainId")
         return parsedRet

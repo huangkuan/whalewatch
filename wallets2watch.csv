@@ -1,15 +1,22 @@
-,,
-Address,My Label,How do I know?
 0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296,JustinSun,etherscan
-0x532eEdEAbC0CC70F8d371ac76020E1ad9b02cEAb,ZeePrimeCap,"@datanerdonchain
-"
+0x532eEdEAbC0CC70F8d371ac76020E1ad9b02cEAb,ZeePrimeCap,"@datanerdonchain"
 0x287e2c76Aab4720786076c3DEedD7Dd386092050,Roger lim@NGC_Venture,@datanerdonchain
-0xef8Ee41B5F1A62f3aE191f4004Cbaeee686DFaa3,"Smart money YFI,BLUR",@datanerdonchain
+0xef8Ee41B5F1A62f3aE191f4004Cbaeee686DFaa3,Smart money YFI+BLUR,@datanerdonchain
 0x3471884f189FD7C63fe8C83601D28cE0Cc1B3853,Smart money BLUR,@datanerdonchain
 0xa66f8Db3B8F1e4c79e52ac89Fec052811F4dbd19,Arca (Arbitrum),@datanerdonchain
 0x8e6545F9d66d668640c53b8E05D85ACf5f131d77,Smart money LDO ,@datanerdonchain
 0xCA9f1f44b25FEc3c573bFC5A69583021592Ee126,Smart money ETH,@datanerdonchain
 0xE11970f2F3dE9d637Fb786f2d869F8FeA44195AC,Amber Group,@datanerdonchain
+0x011D19410FC79F140C08ffa8301e4153F17F4e27,Amber Group,@lookonchain
+0x8c65c6179d5e86f588f7eCCBA47005a4D068F6d7,Amber OKX Depositor,@lookonchain
+0x5083d02e73cEdE5704c03AC32e72ec635bAB24de,Amber Binance Depositor,@lookonchain
+0xe04d0484FFb9e0b4567794008e5B8a7c7F6B7E6d,$ARB whale,@lookonchain
+0xAdf5845273e61AB2090BdBB32B35DE9BF997Bec7,$ARB whale,@lookonchain
+0xa25273CC31Af0b361808E35a0FDc27a877B9b2E8,$ARB whale,@lookonchain
+0xB15485A37a1e6759f0dfF1bdCCFC27c2C96c8b2e,$ARB whale,@lookonchain
+0x9e74E1DcC5F70600a99F985E45709aCf029E5b29,$ARB whale,@lookonchain
+0x43feD72B921aF413Aad831CEbd221697B18DA54F,Falcon Network,@lookonchain
+0x1157A2076b9bB22a85CC2C162f20fAB3898F4101,Falcon Network related,@lookonchain
 0xD1669Ac6044269b59Fa12c5822439F609Ca54F41,Coin List 1,Etherscan
 0x500A746c9a44f68Fe6AA86a92e7B3AF4F322Ae66,Voyager 1,Etherscan
 0xa8b087fC770a634dd2d7Fe71eb1FA898AF3C7a49,Arca,@BitcoinEmber
@@ -44,9 +51,5 @@ Address,My Label,How do I know?
 0x3801afef98b7d5f162f8f16602ede37814b55df3,Smart money,Cherrypick.xyz
 0xf3fc178157fb3c87548baa86f9d24ba38e649b58,Arb Dao Treasury 1,Dune
 0xc24e24383120669512a336fb3b5b19afb4cc2a56,Arb Dao Treasury 2,Dune
-0xb38e8c17e38363af6ebdcb3dae12e0243582891d,Binance arb,Dune
-0x03e6fa590cadcf15a38e86158e9b3d06ff3399ba,KuCoin (arb),Dune
-0x03ae1a796dfe0400439211133d065bda774b9d3e,OkX arb,Dune
-0xf89d7b9c864f589bbf53a82105107622b35eaa40,Bybit,Etherscan
 0x0a2854fbbd9b3ef66f17d47284e7f899b9509330,Metamask(arb) swap wallet,Self
 0x65b1b96bd01926d3d60dd3c8bc452f22819443a9,GMX smart money,@lookonchain
