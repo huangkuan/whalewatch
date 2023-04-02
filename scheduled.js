@@ -12,6 +12,7 @@ if (process.argv[3] === undefined){
 
 import { getERC20Transfers, parseAPIResponse, getLatestBlock, loadLabels, loadWatchedWallets } from './api.js'
 import axios from 'axios'
+import * as dotenv from 'dotenv'
 
 dotenv.config()
 const conf = process.env
