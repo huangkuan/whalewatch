@@ -13,7 +13,8 @@ if (process.argv[3] === undefined){
 import { getERC20Transfers, parseAPIResponse, getLatestBlock, loadLabels, loadWatchedWallets } from './api.js'
 import axios from 'axios'
 
-const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/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"
+const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/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"
+
 
 const chainId	            = parseInt(process.argv[2])
 const csv_path              = process.argv[3]
@@ -52,7 +53,7 @@ for (let i=0; i<addressWatched.length; i++){
 
 async function run(chainId, addr, blockNum) {
     let endBlock = blockNum - BLOCKS_PER_10M
-    console.log("Downloading blocks:" + endBlock + " -- " + blockNum)
+    //console.log("Downloading blocks:" + endBlock + " -- " + blockNum)
     
     let r = await getERC20Transfers(chainId, addr['addr'], blockNum - BLOCKS_PER_10M)
     if (r.length <=0)
@@ -60,6 +61,12 @@ async function run(chainId, addr, blockNum) {
 
     let resultStr = parseAPIResponse(chainId, r, addressLabelsMap, addr)
     //console.log(resultStr)
-    await axios.post(SLACK_ALERT_CHANNEL, {text: resultStr})
+    try{
+        await axios.post(SLACK_ALERT_CHANNEL, {text: resultStr})
+    }catch(e){
+        console.log("axios errors:")
+        console.log(e)
+        return
+    }
 
 }
