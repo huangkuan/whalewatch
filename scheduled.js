@@ -18,7 +18,6 @@ dotenv.config()
 const conf = process.env
 const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/" + conf.SLACK_WEBHOOKS
 
-
 const chainId	            = parseInt(process.argv[2])
 const csv_path              = process.argv[3]
 let BLOCKS_PER_10M          = 0
