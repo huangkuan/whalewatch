@@ -13,7 +13,9 @@ if (process.argv[3] === undefined){
 import { getERC20Transfers, parseAPIResponse, getLatestBlock, loadLabels, loadWatchedWallets } from './api.js'
 import axios from 'axios'
 
-const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/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"
+dotenv.config()
+const conf = process.env
+const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/" + conf.SLACK_WEBHOOKS
 
 
 const chainId	            = parseInt(process.argv[2])
