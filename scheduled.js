@@ -41,7 +41,7 @@ if (blockNum <= 0){
     process.exit(-1)
 }
 
-const addressLabelsMap = loadLabels("exchange_labels.csv")
+const addressLabelsMap = loadLabels("labels.csv")
 console.log("Labeled addresses loaded")
 
 const addressWatched = loadWatchedWallets(csv_path)

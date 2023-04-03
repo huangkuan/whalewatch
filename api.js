@@ -16,7 +16,7 @@ export function loadWatchedWallets(p="wallets2watch.csv"){
     return addressArr
 }
 
-export function loadLabels(p="exchange_labels.csv"){
+export function loadLabels(p="labels.csv"){
     const content = fs.readFileSync(p, 'utf8')
     const addressArr = content.split('\n')
     const addressMap = new Map()
@@ -73,13 +73,18 @@ export function parseAPIResponse(chainId, data, addressMap, wallet){
 
         let addressFrom = a['from'].toLowerCase()
         let addressTo   = a['to'].toLowerCase()
-        addressFrom     = addressMap.get(addressFrom)?addressMap.get(addressFrom):addressFrom
-        addressFrom     = (addressFrom == wallet['addr'])?"self":addressFrom
-        addressTo       = addressMap.get(addressTo)?addressMap.get(addressTo):addressTo
-        addressTo       = (addressTo == wallet['addr'])?"self":addressTo
-
-        parsedRet       += ` from ${addressFrom} to ${addressTo} for ${tokenValue} ${a['tokenSymbol']} at ${a['timeStamp']} \n`
-        //console.log(` from ${from} to ${to} for ${tokenValue} ${a['tokenSymbol']} at ${a['timeStamp']}`)
+        if (addressFrom == wallet['addr']){
+            //send
+            addressTo       = addressMap.get(addressTo)?addressMap.get(addressTo):addressTo
+            parsedRet       += `Sent ${tokenValue} ${a['tokenSymbol']} to ${addressTo} at ${a['timeStamp']} \n`
+            
+        }else if (addressTo == wallet['addr']){
+            //receive
+            addressTo       = addressMap.get(addressTo)?addressMap.get(addressTo):addressTo
+            parsedRet       += `Received ${tokenValue} ${a['tokenSymbol']} from ${addressFrom} at ${a['timeStamp']} \n`
+        }else{
+            //impossible
+        }
     }
 
     return parsedRet
