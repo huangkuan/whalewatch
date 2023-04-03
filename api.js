@@ -80,7 +80,7 @@ export function parseAPIResponse(chainId, data, addressMap, wallet){
             
         }else if (addressTo == wallet['addr']){
             //receive
-            addressTo       = addressMap.get(addressTo)?addressMap.get(addressTo):addressTo
+            addressFrom       = addressMap.get(addressFrom)?addressMap.get(addressFrom):addressFrom
             parsedRet       += `Received ${tokenValue} ${a['tokenSymbol']} from ${addressFrom} at ${a['timeStamp']} \n`
         }else{
             //impossible
