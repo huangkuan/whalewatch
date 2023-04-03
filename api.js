@@ -59,9 +59,9 @@ export function parseAPIResponse(chainId, data, addressMap, wallet){
     }
 
     if (chainId == 42161){
-        parsedRet = wallet['label'] + " https://arbiscan.io/address/" + wallet['addr'] + "\n"
+        parsedRet = wallet['label'] + " https://arbiscan.io/address/" + wallet['addr'] + "#tokentxns" + "\n"
     }else if (chainId == 1){
-        parsedRet = wallet['label'] + " https://etherscan.io/address/" + wallet['addr'] + "\n"
+        parsedRet = wallet['label'] + " https://etherscan.io/address/" + wallet['addr'] + "#tokentxns" + "\n"
     }else{
         console.log("Invalid chainId")
         return parsedRet
