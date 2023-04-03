@@ -1,13 +1,13 @@
 import * as fs from 'fs'
 import * as dotenv from 'dotenv'
-import got from 'got'
+import web3 from 'web3'
+import axios from 'axios'
 
 dotenv.config()
 const conf = process.env
 
 
-export function loadWatchedWallets(p){
-    //const content = fs.readFileSync('wallets2watch.csv', 'utf8')
+export function loadWatchedWallets(p="wallets2watch.csv"){
     const content = fs.readFileSync(p, 'utf8')
     const rows = content.split('\n')
     let addressArr = []
@@ -17,8 +17,8 @@ export function loadWatchedWallets(p){
     return addressArr
 }
 
-export function loadLabels(){
-    const content = fs.readFileSync('exchange_labels.csv', 'utf8')
+export function loadLabels(p="exchange_labels.csv"){
+    const content = fs.readFileSync(p, 'utf8')
     const addressArr = content.split('\n')
     const addressMap = new Map()
     addressArr.forEach((obj) => {
@@ -37,9 +37,9 @@ export async function getERC20Transfers(chainId, address, startBlock, pageNum=1)
     }
     console.log(url)
     try{
-        let ret = await got.post(url).json()
-        //console.log(ret)
-        return ret['result']
+        let ret = await axios.post(url)
+        console.log(ret['data']['result'])
+        return ret['data']['result']
     }catch(e){
         console.log('Unknown API ERROR')
         return []
@@ -95,9 +95,8 @@ export async function getLatestBlock(chainId){
     }
 
     try{
-        const ret = await got.post(url).json()
-        //console.log(parseInt(ret['result']))
-        return parseInt(ret['result'])
+        const ret = await axios.post(url)
+        return parseInt(ret['data']['result'])
     }catch(e){
         console.log(e)
         return 0

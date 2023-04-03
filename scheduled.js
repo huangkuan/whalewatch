@@ -35,12 +35,13 @@ if (chainId == 42161){
 const blockNum = await getLatestBlock(chainId)
 console.log(`Latest block: ${blockNum}`)
 
+
 if (blockNum <= 0){
     console.log("Invalid block number")
     process.exit(-1)
 }
 
-const addressLabelsMap = loadLabels()
+const addressLabelsMap = loadLabels("exchange_labels.csv")
 console.log("Labeled addresses loaded")
 
 const addressWatched = loadWatchedWallets(csv_path)
