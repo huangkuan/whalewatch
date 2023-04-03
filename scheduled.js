@@ -63,7 +63,8 @@ async function run(chainId, addr, blockNum) {
         return
 
     let resultStr = parseAPIResponse(chainId, r, addressLabelsMap, addr)
-    //console.log(resultStr)
+    console.log(resultStr)
+/*    
     try{
         await axios.post(SLACK_ALERT_CHANNEL, {text: resultStr})
     }catch(e){
@@ -71,5 +72,5 @@ async function run(chainId, addr, blockNum) {
         console.log(e)
         return
     }
-
+*/
 }

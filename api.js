@@ -1,6 +1,5 @@
 import * as fs from 'fs'
 import * as dotenv from 'dotenv'
-import web3 from 'web3'
 import axios from 'axios'
 
 dotenv.config()
@@ -12,7 +11,7 @@ export function loadWatchedWallets(p="wallets2watch.csv"){
     const rows = content.split('\n')
     let addressArr = []
     for (let r of rows){
-        addressArr.push({"addr":r.split(",")[0], "label":r.split(",")[1]})
+        addressArr.push({"addr":r.split(",")[0].toLowerCase(), "label":r.split(",")[1]})
     }
     return addressArr
 }
@@ -23,7 +22,7 @@ export function loadLabels(p="exchange_labels.csv"){
     const addressMap = new Map()
     addressArr.forEach((obj) => {
         let row = obj.split(',')
-        addressMap.set(row[0], row[1])
+        addressMap.set(row[0].toLowerCase(), row[1])
     })
     return addressMap
 }
@@ -38,7 +37,7 @@ export async function getERC20Transfers(chainId, address, startBlock, pageNum=1)
     console.log(url)
     try{
         let ret = await axios.post(url)
-        console.log(ret['data']['result'])
+        //console.log(ret['data']['result'])
         return ret['data']['result']
     }catch(e){
         console.log('Unknown API ERROR')
@@ -69,14 +68,17 @@ export function parseAPIResponse(chainId, data, addressMap, wallet){
     }
 
     for (let a of data){
-        let from          = addressMap.get(a['from'])?addressMap.get(a['from']):a['from']
-        let to            = addressMap.get(a['to'])?addressMap.get(a['to']):a['to']
         const tokenDecimal  = parseInt(a['tokenDecimal'])
         const tokenValue    = parseInt(a['value'])/Math.pow(10, tokenDecimal)
-        from = (from == wallet)?"self":from
-        to = (to == wallet)?"self":to
-        parsedRet += ` from ${from} to ${to} for ${tokenValue} ${a['tokenSymbol']} at ${a['timeStamp']}`
-        parsedRet += "\n"
+
+        let addressFrom = a['from'].toLowerCase()
+        let addressTo   = a['to'].toLowerCase()
+        addressFrom     = addressMap.get(addressFrom)?addressMap.get(addressFrom):addressFrom
+        addressFrom     = (addressFrom == wallet['addr'])?"self":addressFrom
+        addressTo       = addressMap.get(addressTo)?addressMap.get(addressTo):addressTo
+        addressTo       = (addressTo == wallet['addr'])?"self":addressTo
+
+        parsedRet       += ` from ${addressFrom} to ${addressTo} for ${tokenValue} ${a['tokenSymbol']} at ${a['timeStamp']} \n`
         //console.log(` from ${from} to ${to} for ${tokenValue} ${a['tokenSymbol']} at ${a['timeStamp']}`)
     }
 
