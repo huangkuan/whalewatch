@@ -6,7 +6,7 @@ dotenv.config()
 const conf = process.env
 
 
-export function loadWatchedWallets(p="wallets2watch.csv"){
+export function loadWatchedWallets(p="test.csv"){
     const content = fs.readFileSync(p, 'utf8')
     const rows = content.split('\n')
     let addressArr = []
