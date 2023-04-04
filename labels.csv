@@ -1,3 +1,5 @@
+0xb0fc7e314b06ea9975494a5ea198c87b2034576b,$ARB whale 0xb0fc,@BitcoinEmber,
+0xc397d4677d0fe3d5c55c017b6a1e2c5162f7de32,$ARB whale 0xb0fc stablecoin wallet,@BitcoinEmber,
 0xe04d0484FFb9e0b4567794008e5B8a7c7F6B7E6d,$ARB whale 0xe04d,@lookonchain,
 0xAdf5845273e61AB2090BdBB32B35DE9BF997Bec7,$ARB whale 0xAdf5,@lookonchain,
 0xa25273CC31Af0b361808E35a0FDc27a877B9b2E8,$ARB whale 0xa252,@lookonchain,
@@ -31,6 +33,7 @@
 0xca8d6f69d8f32516a109df68b623452cc9f5e64d,Paradigm,Nansen
 0xF05e2A70346560d3228c7002194Bb7C5dC8Fe100,Jump trading Binance deposit,Etherscan
 0xf584f8728b874a6a5c7a8d4d387c9aae9172d621,Jump trading,Etherscan
+0x9507c04b10486547584c37bcbd931b2a4fee9a41,Jump trading 2,Etherscan
 0xd52055a39a3d2f7505c739f981f296ea31b50191,Eth Millinaire(paradigm related),Nansen
 0x2baba0cba8241fda56871589835e0b05ec64ca41,Smart dex trader,Nansen
 0x280027dd00ee0050d3f9d168efd6b40090009246,Wintermute Trading fund,Nansen
@@ -53,6 +56,7 @@
 0xf3fc178157fb3c87548baa86f9d24ba38e649b58,Arb Dao Treasury 1,Dune,
 0xc24e24383120669512a336fb3b5b19afb4cc2a56,Arb Dao Treasury 2,Dune,
 0x65b1b96bd01926d3d60dd3c8bc452f22819443a9,GMX smart money,@lookonchain,
+0x9008D19f58AAbD9eD0D60971565AA8510560ab41,CoW protocolGPv2Settlement,Etherscan,
 0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be,Binance,
 0x85b931a32a0725be14285b66f1a22178c672d69b,Binance 10,
 0x708396f17127c42383e3b9014072679b2f60b82f,Binance 11,
@@ -3805,7 +3809,7 @@
 0x5ab53ee1d50eef2c1dd3d5402789cd27bb52c1bb,Uniswap Pool,
 0xc2e9f25be6257c210d7adf0d4cd6e3e881ba25f8,Uniswap Pool,
 0x7858e59e0c01ea06df3af3d20ac7b0003275d4bf,Uniswap Pool,
-0xa6cc3c2531fdaa6ae1a3ca84c2855806728693e8,Uniswap Pool,
+0xa6cc3c2531fdaa6ae1a3ca84c2855806728693e8,Uniswap Pool LINK,
 0x35815d67f717e7bce9cc8519bdc80323ecf7d260,Uniswap Pool,
 0x886072a44bdd944495eff38ace8ce75c1eacdaf6,Uniswap Pool,
 0xf83d5aaab14507a53f97d3c18bdb52c4a62efc40,Uniswap Pool,
@@ -5415,7 +5419,7 @@
 0x1a205d1ef7fb2b247fea813934cf961dc98bc70b,Uniswap Pool,
 0x42ccbabc3f2e7e1ede19127fd07025ff53154645,Uniswap Pool,
 0x5b916b5b83ce8432498730dbbd39f2eaa3d44b57,Uniswap Pool,
-0x2e4784446a0a06df3d1a040b03e1680ee266c35a,Uniswap Pool,
+0x2e4784446a0a06df3d1a040b03e1680ee266c35a,Uniswap Pool CVX,
 0x75c80ce8fddfc61641bed16cd90c9123f0d9a020,Uniswap Pool,
 0x6138f683c6eefd0fedccd98801a8bf4d73bb16df,Uniswap Pool,
 0x751680323dbc5a18e332f6a352c1c95d29e8571d,Uniswap Pool,
