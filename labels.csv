@@ -6,7 +6,7 @@
 0xB15485A37a1e6759f0dfF1bdCCFC27c2C96c8b2e,$ARB whale 0xB154,@lookonchain,
 0x9e74E1DcC5F70600a99F985E45709aCf029E5b29,$ARB whale 0x9e74,@lookonchain,
 0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296,JustinSun,etherscan,
-0x532eEdEAbC0CC70F8d371ac76020E1ad9b02cEAb,ZeePrimeCap,"@datanerdonchain",
+0x532eEdEAbC0CC70F8d371ac76020E1ad9b02cEAb,ZeePrimeCap,,@datanerdonchain,,
 0x287e2c76Aab4720786076c3DEedD7Dd386092050,Roger lim@NGC_Venture,@datanerdonchain,
 0xef8Ee41B5F1A62f3aE191f4004Cbaeee686DFaa3,Smart money YFI+BLUR,@datanerdonchain,
 0x3471884f189FD7C63fe8C83601D28cE0Cc1B3853,Smart money BLUR,@datanerdonchain,
@@ -41,7 +41,7 @@
 0xd249942f6d417cbfdcb792b1229353b66c790726,Smart dex trader,Nansen
 0x98c3d3183c4b8a650614ad179a1a98be0a8d6b8e,MEV Bot,Etherscan
 0x58f5f0684c381fcfc203d77b2bba468ebb29b098,Block tower,Nansen
-0xcf1ca1032e32f305c5d06f662b4d6d463c8d4e43,"ETH Whale, smart money",@lookonchain
+0xcf1ca1032e32f305c5d06f662b4d6d463c8d4e43,,ETH Whale, smart money,,@lookonchain
 0xF0A0E9C7CDab0335fe65b8EBa5a72c8694961fc9,APE Whale,@lookonchain
 0x5754284f345afc66a98fbB0a0Afe71e0F007B949,Tether Treasury,Etherscan
 0xB93994e2efCAed3E88C538F68eC6A2587C3E2ebF,Dragonfly,@lookonchain

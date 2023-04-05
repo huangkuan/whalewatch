@@ -112,11 +112,11 @@ export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
                 if (addressFrom == wallet['addr']){
                     //send
                     addressTo   = addressLabelsMap.get(addressTo)?addressLabelsMap.get(addressTo):addressTo
-                    retMessage += `<${txnLinkPrefix}${k}| Sent> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} to ${addressTo} at ${item['timeStamp']}` + '\n'
+                    retMessage += `<${txnLinkPrefix}${k}| Sent ${tokenValue.toFixed(2)} ${item['tokenSymbol']} to ${addressTo} at ${item['timeStamp']}` + '\n'
                 }else if (addressTo == wallet['addr']){
                     //receive
                     addressFrom = addressLabelsMap.get(addressFrom)?addressLabelsMap.get(addressFrom):addressFrom
-                    retMessage += `<${txnLinkPrefix}${k}| Received> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} from ${addressFrom} at ${item['timeStamp']}` + '\n'
+                    retMessage += `Received ${tokenValue.toFixed(2)} ${item['tokenSymbol']} from ${addressFrom} at ${item['timeStamp']}` + '\n'
                 }else{
                     //unknown
                 }
