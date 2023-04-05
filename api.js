@@ -71,7 +71,18 @@ export async function getLatestBlock(chainId){
 
 export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
     let retMessage = ""
-    
+    let addressLinkPrefix = "", txnLinkPrefix = ""
+    if (chainId == 42161){
+        addressLinkPrefix = "https://arbiscan.io/address/"
+        txnLinkPrefix     = "https://arbiscan.io/tx/" 
+    }else if (chainId == 1){
+        addressLinkPrefix = "https://etherscan.io/address/"
+        txnLinkPrefix     = "https://etherscan.io/tx/"
+    }else{
+        console.log("Invalid chainId")
+        return retMessage
+    }
+
     if (data.length == 0){
         console.log('reache the end')
         return retMessage
@@ -79,14 +90,7 @@ export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
         console.log("Parsing " + data.length + " results")
     }
 
-    if (chainId == 42161){
-        retMessage = "<https://arbiscan.io/address/" + wallet['addr'] + "#tokentxns| *" + wallet['label'] + "*>\n"
-    }else if (chainId == 1){
-        retMessage = "<https://etherscan.io/address/" + wallet['addr'] + "#tokentxns| *" + wallet['label'] + "*>\n"
-    }else{
-        console.log("Invalid chainId")
-        return retMessage
-    }
+    retMessage += `<${addressLinkPrefix}${wallet['addr']}#tokentxns| *${wallet['label']}*>\n`
 
     //groupping data by transaction hash
     const groupedData = data.reduce((groups, item) =>{
@@ -108,11 +112,11 @@ export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
                 if (addressFrom == wallet['addr']){
                     //send
                     addressTo   = addressLabelsMap.get(addressTo)?addressLabelsMap.get(addressTo):addressTo
-                    retMessage += `Sent ${tokenValue.toFixed(2)} ${item['tokenSymbol']} to ${addressTo} at ${item['timeStamp']}` + '\n'
+                    retMessage += `<${txnLinkPrefix}${k}| Sent> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} to ${addressTo} at ${item['timeStamp']}` + '\n'
                 }else if (addressTo == wallet['addr']){
                     //receive
                     addressFrom = addressLabelsMap.get(addressFrom)?addressLabelsMap.get(addressFrom):addressFrom
-                    retMessage += `Received ${tokenValue.toFixed(2)} ${item['tokenSymbol']} from ${addressFrom} at ${item['timeStamp']}` + '\n'
+                    retMessage += `<${txnLinkPrefix}${k}| Received> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} from ${addressFrom} at ${item['timeStamp']}` + '\n'
                 }else{
                     //unknown
                 }
@@ -141,13 +145,7 @@ export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
                 time           = v[1]['timeStamp']
             }
 
-            if (chainId == 42161){
-                retMessage += `<https://arbiscan.io/tx/${k}| Swap> ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time} >\n`
-            }else if (chainId == 1){
-                retMessage += `<https://etherscan.io/tx/${k}| Swap> ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time}\n`
-            }else{
-                console.log("Invalid chainId")
-            }
+            retMessage += `<${txnLinkPrefix}${k}| Swap> ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time}\n`
         }
     }
 
