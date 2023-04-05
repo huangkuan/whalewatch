@@ -142,9 +142,9 @@ export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
             }
 
             if (chainId == 42161){
-                retMessage += `<href=https://arbiscan.io/tx/${k}| Swap ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time} >\n`
+                retMessage += `<https://arbiscan.io/tx/${k}| Swap ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time} >\n`
             }else if (chainId == 1){
-                retMessage += `<href=https://etherscan.io/tx/${k}| Swap ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time} >\n`
+                retMessage += `<https://etherscan.io/tx/${k}| Swap ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time} >\n`
             }else{
                 console.log("Invalid chainId")
             }
