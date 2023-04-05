@@ -112,11 +112,11 @@ export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
                 if (addressFrom == wallet['addr']){
                     //send
                     addressTo   = addressLabelsMap.get(addressTo)?addressLabelsMap.get(addressTo):addressTo
-                    retMessage += `<${txnLinkPrefix}${k}| Sent ${tokenValue.toFixed(2)} ${item['tokenSymbol']} to ${addressTo} at ${item['timeStamp']}` + '\n'
+                    retMessage += `<${txnLinkPrefix}${k}| Sent> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} to ${addressTo} at ${item['timeStamp']}` + '\n'
                 }else if (addressTo == wallet['addr']){
                     //receive
                     addressFrom = addressLabelsMap.get(addressFrom)?addressLabelsMap.get(addressFrom):addressFrom
-                    retMessage += `Received ${tokenValue.toFixed(2)} ${item['tokenSymbol']} from ${addressFrom} at ${item['timeStamp']}` + '\n'
+                    retMessage += `<${txnLinkPrefix}${k}| Received> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} from ${addressFrom} at ${item['timeStamp']}` + '\n'
                 }else{
                     //unknown
                 }
@@ -145,7 +145,7 @@ export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
                 time           = v[1]['timeStamp']
             }
 
-            retMessage += `<${txnLinkPrefix}${k}| Swap> ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time}\n`
+            retMessage += `<${txnLinkPrefix}${k}| Swapped> ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time}\n`
         }
     }
 
