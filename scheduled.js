@@ -10,7 +10,7 @@ if (process.argv[3] === undefined){
     process.exit(-1)
 }
 
-import { getERC20Transfers, parseAPIResponse, getLatestBlock, loadLabels, loadWatchedWallets } from './api.js'
+import { getERC20Transfers, formatSlackMessage, getLatestBlock, loadLabels, loadWatchedWallets } from './api.js'
 import axios from 'axios'
 import * as dotenv from 'dotenv'
 
@@ -62,7 +62,7 @@ async function run(chainId, addr, blockNum) {
     if (r.length <=0)
         return
 
-    let resultStr = parseAPIResponse(chainId, r, addressLabelsMap, addr)
+    let resultStr = formatSlackMessage(chainId, r, addressLabelsMap, addr)
     console.log(resultStr)
     
     try{

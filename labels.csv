@@ -37,6 +37,7 @@
 0xd52055a39a3d2f7505c739f981f296ea31b50191,Eth Millinaire(paradigm related),Nansen
 0x2baba0cba8241fda56871589835e0b05ec64ca41,Smart dex trader,Nansen
 0x280027dd00ee0050d3f9d168efd6b40090009246,Wintermute Trading fund,Nansen
+0xb3f923eabaf178fc1bd8e13902fc5c61d3ddef5b,Wintermute: Binance Deposit
 0xd249942f6d417cbfdcb792b1229353b66c790726,Smart dex trader,Nansen
 0x98c3d3183c4b8a650614ad179a1a98be0a8d6b8e,MEV Bot,Etherscan
 0x58f5f0684c381fcfc203d77b2bba468ebb29b098,Block tower,Nansen
@@ -112,7 +113,6 @@
 0x15ece0d7de25436bcfcf3d62a9085ddc7838aee9,Binance: Deposit Funder 3,
 0x2f47a1c2db4a3b78cda44eade915c3b19107ddcc,Binance: Eth2 Depositor,
 0x043a80999cee3711d372fb878768909fbe7f71e6,Binance: Industry Recovery Initiative,
-0xb3f923eabaf178fc1bd8e13902fc5c61d3ddef5b,Wintermute: Binance Deposit,
 0x71660c4005ba85c37ccec55d0c4493e66fe775d3,Coinbase 1,
 0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43,Coinbase 10,
 0x77696bb39917c91a0c3908d577d5e322095425ca,Coinbase 11,
@@ -226,6 +226,7 @@
 0x03ae1a796dfe0400439211133d065bda774b9d3e,OkX arb,Dune,
 0xf89d7b9c864f589bbf53a82105107622b35eaa40,Bybit,Etherscan,
 0x67a24ce4321ab3af51c2d0a4801c3e111d88c9d9,ArbitrumFND token distributor,
+0xe8c19db00287e3536075114b2576c70773e039bd,Andrew Kang,lookonchain,
 0x408ade445f7467443d6ae2cdde6bc20867c82c1f,Uniswap Pool,
 0x896def53b0cfe8c410733aa30d4f78246ba44ce0,Uniswap Pool,
 0x4b3d09151ad295623ac9e50967739fd437b0d892,Uniswap Pool,
@@ -3856,7 +3857,7 @@
 0x38b13a9e112cbdb281d1aac4bdc10a5a0c0c9651,Uniswap Pool,
 0x57729d1496ab1f421a451019d28e5062dcbbdeda,Uniswap Pool,
 0xf148bdb609575b613cd615bafe2b22cc47532ee8,Uniswap Pool,
-0x11b815efb8f581194ae79006d24e0d814b7697f6,Uniswap Pool V3 USDT 3,
+0x11b815efb8f581194ae79006d24e0d814b7697f6,Uniswap Pool USDT 3,
 0xb9546374d2127a056cfb4dbc6d987e476146c4ea,Uniswap Pool,
 0x0a09ccbaad2550746560b5a66bc77945820f2954,Uniswap Pool,
 0x713ce36a75887ddbbfa1dacd8ef6128b36e34d0a,Uniswap Pool,
@@ -3996,7 +3997,7 @@
 0xa6b9a13b34db2a00284299c47dacf49fb62c1755,Uniswap Pool,
 0x5d4f3c6fa16908609bac31ff148bd002aa6b8c83,Uniswap Pool,
 0x21c4921201c19aa96cc01d50f9c7fbdd6032b829,Uniswap Pool,
-0x4585fe77225b41b697c938b018e2ac67ac5a20c0,Uniswap Pool V3 WBTC 2,
+0x4585fe77225b41b697c938b018e2ac67ac5a20c0,Uniswap Pool WBTC 2,
 0x9a9cf34c3892acdb61fb7ff17941d8d81d279c75,Uniswap Pool,
 0x8e26e2fc8140280fba3e34bfdca7fc1102c1ae04,Uniswap Pool,
 0xd35efae4097d005720608eaf37e42a5936c94b44,Uniswap Pool,
@@ -4400,7 +4401,7 @@
 0x8e587b3c84a153baaabb551777db5740808fe8ab,Uniswap Pool,
 0xea13cb440f817758394a6971b935ca50adfaaeb4,Uniswap Pool,
 0x924f230530e8fb5eb4db3e72c48a534e8d1fc06a,Uniswap Pool,
-0x2519042aa735edb4688a8376d69d4bb69431206c,Uniswap Pool V3 LPT2,
+0x2519042aa735edb4688a8376d69d4bb69431206c,Uniswap Pool LPT2,
 0xaef97897fc4e284526e6eee1115344e3f5ed979c,Uniswap Pool,
 0x09946d4e4ccde2a28ef269d26d9423034f5333e1,Uniswap Pool,
 0xc2bf50fb4bbfabf283718944b68c62a9024d7a11,Uniswap Pool,
@@ -7723,7 +7724,7 @@
 0x1fa2bc13299e0725bb3a91106417231efb34a1e9,Uniswap Pool,
 0xdf2215e5936353b336c03cae561ee673fde42c43,Uniswap Pool,
 0xbfacdf75f59988f18700d46f85095cda600e2192,Uniswap Pool,
-0xa0b30e46f6aeb8f5a849241d703254bb4a719d92,Uniswap Pool V3 OGV,
+0xa0b30e46f6aeb8f5a849241d703254bb4a719d92,Uniswap Pool OGV,
 0x63ffb9761ae7cae630257f735ab4b15f82ec73c6,Uniswap Pool,
 0x0de615fb8dcb1f38c27d2936ece7825473750186,Uniswap Pool,
 0x62979dff3b5eb032ecba1a5934d1fd4367bb695c,Uniswap Pool,
@@ -10375,6 +10376,10 @@
 0x3ed5c2f4c49e17089dea0a4a2b4d73b5504dcc51,Uniswap Pool,
 0x772de21385a5ec3f47c3e8d2134a665c9d1a2a74,Uniswap Pool,
 0x91893e915c7176729b00b3f2c258f82ef7b0b777,Uniswap Pool,
+0x824a30f2984f9013f2c8d0a29c0a3cc5fd5c0673,Uniswap Pool BLUR 7,
+0xcd423f3ab39a11ff1d9208b7d37df56e902c932b,Uniswap Pool PRIME,
+0x92ab871abb9d567aa276b2ce58d0203d84e0181e,Uniswap Pool Blur-USDC 2
+0x3da1313ae46132a397d90d95b1424a9a7e3e0fce,Uniswap Pool V2 CRV6,
 0xc36442b4a4522e871399cd717abdd847ab11fe88,Uniswap Position NFT,
 0x81c48d31365e6b526f6bbadc5c9aafd822134863,Uniswap ARB/USDC(Arb) Pool,
 0x1aeedd3727a6431b8f070c0afaa81cc74f273882,Uniswap ETH/GMX(Arb) Pool,
@@ -10384,3 +10389,6 @@
 0x80a9ae39310abf666a87c743d6ebbd0e8c42158e,Uniswap ETH/GMX(Arb) Pool,
 0x92c63d0e701caae670c9415d91c474f686298f00,Uniswap ETH/ARB(Arb) 2 Pool,
 0xc31e54c7a869b9fcbecc14363cf510d1c41fa443,Uniswap ETH/USDC(Arb) Pool,
+0x06da0fd433c1a5d7a4faa01111c044910a184553,SushiSwap: USDT,
+0x397ff1542f962076d0bfe58ea045ffa2d347aca0,SushiSwap: USDC,
+0x58dc5a51fe44589beb22e8ce67720b5bc5378009,SushiSwap: CRV,

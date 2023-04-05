@@ -47,50 +47,6 @@ export async function getERC20Transfers(chainId, address, startBlock, pageNum=1)
     
 }
 
-//Format response for Slack
-export function parseAPIResponse(chainId, data, addressMap, wallet){
-    
-    let parsedRet = ""
-    
-    if (data.length == 0){
-        console.log('reache the end')
-        return parsedRet
-    }else{
-        console.log("Parsing " + data.length + " results")
-    }
-
-    if (chainId == 42161){
-        parsedRet = "<https://arbiscan.io/address/" + wallet['addr'] + "#tokentxns| *" + wallet['label'] + "*>\n"
-    }else if (chainId == 1){
-        parsedRet = "<https://etherscan.io/address/" + wallet['addr'] + "#tokentxns| *" + wallet['label'] + "*>\n"
-    }else{
-        console.log("Invalid chainId")
-        return parsedRet
-    }
-
-    for (let a of data){
-        const tokenDecimal  = parseInt(a['tokenDecimal'])
-        const tokenValue    = parseInt(a['value'])/Math.pow(10, tokenDecimal)
-
-        let addressFrom = a['from'].toLowerCase()
-        let addressTo   = a['to'].toLowerCase()
-        if (addressFrom == wallet['addr']){
-            //send
-            addressTo       = addressMap.get(addressTo)?addressMap.get(addressTo):addressTo
-            parsedRet       += `Sent ${tokenValue} ${a['tokenSymbol']} to ${addressTo} at ${a['timeStamp']} \n`
-            
-        }else if (addressTo == wallet['addr']){
-            //receive
-            addressFrom       = addressMap.get(addressFrom)?addressMap.get(addressFrom):addressFrom
-            parsedRet       += `Received ${tokenValue} ${a['tokenSymbol']} from ${addressFrom} at ${a['timeStamp']} \n`
-        }else{
-            //impossible
-        }
-    }
-
-    return parsedRet
-}
-
 export async function getLatestBlock(chainId){
     let url = ''
 
@@ -110,4 +66,83 @@ export async function getLatestBlock(chainId){
         return 0
     }
 
+}
+
+
+export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
+    let retMessage = ""
+    
+    if (data.length == 0){
+        console.log('reache the end')
+        return retMessage
+    }else{
+        console.log("Parsing " + data.length + " results")
+    }
+
+    if (chainId == 42161){
+        retMessage = "<https://arbiscan.io/address/" + wallet['addr'] + "#tokentxns| *" + wallet['label'] + "*>\n"
+    }else if (chainId == 1){
+        retMessage = "<https://etherscan.io/address/" + wallet['addr'] + "#tokentxns| *" + wallet['label'] + "*>\n"
+    }else{
+        console.log("Invalid chainId")
+        return retMessage
+    }
+
+    //groupping data by transaction hash
+    const groupedData = data.reduce((groups, item) =>{
+        //console.log(groups)
+        const group = groups[item['hash']] || []
+        group.push(item)
+        groups[item['hash']] = group
+        return groups
+    }, {})
+
+    for (const [k,v] of Object.entries(groupedData)){
+        if (v.length != 2){
+            //if a transaction does not have excatly 2 transfers, we do nothing
+            for (let item of v){
+                const tokenDecimal  = parseInt(item['tokenDecimal'])
+                const tokenValue    = parseFloat(item['value'])/Math.pow(10, tokenDecimal)
+                let addressFrom     = item['from'].toLowerCase()
+                let addressTo       = item['to'].toLowerCase()
+                if (addressFrom == wallet['addr']){
+                    //send
+                    addressTo   = addressLabelsMap.get(addressTo)?addressLabelsMap.get(addressTo):addressTo
+                    retMessage += `Sent ${tokenValue.toFixed(2)} ${item['tokenSymbol']} to ${addressTo} at ${item['timeStamp']}` + '\n'
+                }else if (addressTo == wallet['addr']){
+                    //receive
+                    addressFrom = addressLabelsMap.get(addressFrom)?addressLabelsMap.get(addressFrom):addressFrom
+                    retMessage += `Received ${tokenValue.toFixed(2)} ${item['tokenSymbol']} from ${addressFrom} at ${item['timeStamp']}` + '\n'
+                }else{
+                    //unknown
+                }
+            }
+        }else{
+            //If there are two transfers in a transaction, we combine them into a swap message
+            //swap x value of Token A for y value of Token B via Exchange at Time
+            let tokenA="",tokenDecimalA="", tokenValueA=0.0, tokenB="", tokenDecimalB="", tokenValueB=0.0, exchange="", time=""
+            if (wallet['addr'] == v[0]['from'].toLowerCase()){
+                tokenA         = v[0]['tokenSymbol']
+                tokenDecimalA  = parseInt(v[0]['tokenDecimal'])
+                tokenValueA    = parseFloat(v[0]['value'])/Math.pow(10, tokenDecimalA)
+                tokenB         = v[1]['tokenSymbol']
+                tokenDecimalB  = parseInt(v[1]['tokenDecimal'])
+                tokenValueB    = parseFloat(v[1]['value'])/Math.pow(10, tokenDecimalB)
+                exchange       = addressLabelsMap.get(v[0]['to'].toLowerCase())?addressLabelsMap.get(v[0]['to'].toLowerCase()):v[0]['to'].toLowerCase()
+                time           = v[0]['timeStamp']
+            }else{
+                tokenA         = v[1]['tokenSymbol']
+                tokenDecimalA  = parseInt(v[1]['tokenDecimal'])
+                tokenValueA    = parseFloat(v[1]['value'])/Math.pow(10, tokenDecimalA)
+                tokenB         = v[0]['tokenSymbol']
+                tokenDecimalB  = parseInt(v[0]['tokenDecimal'])
+                tokenValueB    = parseFloat(v[0]['value'])/Math.pow(10, tokenDecimalB)
+                exchange       = addressLabelsMap.get(v[1]['to'].toLowerCase())?addressLabelsMap.get(v[1]['to'].toLowerCase()):v[1]['to'].toLowerCase()
+                time           = v[1]['timeStamp']
+            }
+            retMessage += `Swap ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time} \n`
+        }
+    }
+
+    return retMessage
 }
