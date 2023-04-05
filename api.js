@@ -40,7 +40,8 @@ export async function getERC20Transfers(chainId, address, startBlock, pageNum=1)
         //console.log(ret['data']['result'])
         return ret['data']['result']
     }catch(e){
-        console.log('Unknown API ERROR')
+        console.log('Unknown API ERROR:')
+        console.log(e)
         return []
     }
     
