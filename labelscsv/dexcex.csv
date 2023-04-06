@@ -1,4 +1,13 @@
-0x9008D19f58AAbD9eD0D60971565AA8510560ab41,CoW protocolGPv2Settlement,Etherscan,
+0x67a24ce4321ab3af51c2d0a4801c3e111d88c9d9,ArbitrumFND token distributor
+0xf3fc178157fb3c87548baa86f9d24ba38e649b58,Arb Dao Treasury 1,
+0xc24e24383120669512a336fb3b5b19afb4cc2a56,Arb Dao Treasury 2,
+0xb3f923eabaf178fc1bd8e13902fc5c61d3ddef5b,Wintermute: Binance Deposit
+0x280027dd00ee0050d3f9d168efd6b40090009246,Wintermute Trading fund
+0xF05e2A70346560d3228c7002194Bb7C5dC8Fe100,Jump trading Binance deposit
+0x9224FC9d1389734cebb7CB29545BdDC546Fb9802,DODO lock token Vault 1,
+0x98c3d3183c4b8a650614ad179a1a98be0a8d6b8e,MEV Bot,
+0x5754284f345afc66a98fbB0a0Afe71e0F007B949,Tether Treasury,
+0x9008D19f58AAbD9eD0D60971565AA8510560ab41,CoW protocolGPv2Settlement,
 0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be,Binance,
 0x85b931a32a0725be14285b66f1a22178c672d69b,Binance 10,
 0x708396f17127c42383e3b9014072679b2f60b82f,Binance 11,
@@ -164,10 +173,11 @@
 0x09f77e8a13de9a35a7231028187e9fd5db8a2acb,GMX Orderbook(arb),
 0x62383739d68dd0f844103db8dfb05a7eded5bbe6,OKX(arb),
 0x6cc5f688a315f3dc28a7781717a9a798a59fda7b,OKX 0x6cc5,
-0x03ae1a796dfe0400439211133d065bda774b9d3e,OKX 0x03ae,Dune,
-0xb38e8c17e38363af6ebdcb3dae12e0243582891d,Binance(arb) hot wallet,Dune,
-0x03e6fa590cadcf15a38e86158e9b3d06ff3399ba,KuCoin(arb),Dune,
-0xf89d7b9c864f589bbf53a82105107622b35eaa40,Bybit,Etherscan,
+0x03ae1a796dfe0400439211133d065bda774b9d3e,OKX 0x03ae,
+0xb38e8c17e38363af6ebdcb3dae12e0243582891d,Binance(arb) hot wallet,
+0x03e6fa590cadcf15a38e86158e9b3d06ff3399ba,KuCoin(arb),
+0xf89d7b9c864f589bbf53a82105107622b35eaa40,Bybit,
+0xe80623a9d41f2f05780d9cd9cea0f797fd53062a,Bitget,
 0x06da0fd433c1a5d7a4faa01111c044910a184553,SushiSwap: USDT,
 0x397ff1542f962076d0bfe58ea045ffa2d347aca0,SushiSwap: USDC,
 0x58dc5a51fe44589beb22e8ce67720b5bc5378009,SushiSwap: CRV,

@@ -23,5 +23,4 @@ Rate limit of Etherscan API: 5 calls per second, 100k calls per day
 Reach out to me to get a local copy of the .env file
 
 ## Cronjob
-
-Every 15 minutes, we check the chain.
+Every 10 minutes, we check the chain.
