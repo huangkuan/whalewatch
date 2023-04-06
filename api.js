@@ -16,14 +16,16 @@ export function loadWatchedWallets(p="test.csv"){
     return addressArr
 }
 
-export function loadLabels(p="labels.csv"){
-    const content = fs.readFileSync(p, 'utf8')
-    const addressArr = content.split('\n')
+export function loadLabels(ps){
     const addressMap = new Map()
-    addressArr.forEach((obj) => {
-        let row = obj.split(',')
-        addressMap.set(row[0].toLowerCase(), row[1])
-    })
+    for (let p of ps){
+      const content = fs.readFileSync(p, 'utf8')
+      const addressArr = content.split('\n')
+      addressArr.forEach((obj) => {
+          let row = obj.split(',')
+          addressMap.set(row[0].toLowerCase(), row[1])
+      })
+    }
     return addressMap
 }
 

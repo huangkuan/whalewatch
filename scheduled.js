@@ -40,8 +40,13 @@ if (blockNum <= 0){
     console.log("Invalid block number")
     process.exit(-1)
 }
-
-const addressLabelsMap = loadLabels("labels.csv")
+const csv_paths = [
+    './labelscsv/dexcex.csv',
+    './labelscsv/uniswap_arb.csv',
+    './labelscsv/uniswap_eth.csv',
+    './labelscsv/watched.csv'
+  ]
+const addressLabelsMap = loadLabels(csv_paths)
 console.log("Labeled addresses loaded")
 
 const addressWatched = loadWatchedWallets(csv_path)
