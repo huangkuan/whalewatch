@@ -53,10 +53,10 @@ const addressWatched = loadWatchedWallets(csv_path)
 console.log("Watched addresses loaded")
 
 for (let i=0; i<addressWatched.length; i++){
-    //To bypass the 5 requests/sec rate limit, we put a 250ms pause in between API calls
+    //To bypass the 5 requests/sec rate limit, we put a 300ms pause in between API calls
     setTimeout(() => {
         run(chainId, addressWatched[i], blockNum)
-    }, i*250)
+    }, i*300)
 }
 
 async function run(chainId, addr, blockNum) {
