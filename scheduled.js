@@ -21,11 +21,14 @@ const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/" + conf.SLACK_W
 const chainId	            = parseInt(process.argv[2])
 const csv_path              = process.argv[3]
 let BLOCKS_PER_10M          = 0
+let APICALL_INTERVAL        = 600 //arbiscan api has much lower and unknown threshold and often throws 429 request error
 
 if (chainId == 42161){
     BLOCKS_PER_10M = 7000
+    APICALL_INTERVAL = 600
 }else if(chainId == 1){
     BLOCKS_PER_10M = 70
+    APICALL_INTERVAL = 250
 }else{
     console.log("Unknown chain id.")
     process.exit(-1)
@@ -56,7 +59,7 @@ for (let i=0; i<addressWatched.length; i++){
     //To bypass the 5 requests/sec rate limit, we put a 300ms pause in between API calls
     setTimeout(() => {
         run(chainId, addressWatched[i], blockNum)
-    }, i*300)
+    }, i*APICALL_INTERVAL)
 }
 
 async function run(chainId, addr, blockNum) {
