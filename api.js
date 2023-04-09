@@ -94,7 +94,7 @@ export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
         console.log("Parsing " + data.length + " results")
     }
 
-    retMessage += `<${addressLinkPrefix}${wallet['addr']}#tokentxns| *${wallet['label']}*>\n`
+    retMessage += `<${addressLinkPrefix}${wallet['addr']}#tokentxns| *${wallet['label']}*> [${chainId}]\n`
 
     //groupping data by transaction hash
     const groupedData = data.reduce((groups, item) =>{
