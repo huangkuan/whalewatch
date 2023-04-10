@@ -53,7 +53,7 @@
 0xd007058e9b58E74C33c6bF6fbCd38BaAB813cBB6,Wangchun@stakefish+f2pool,Nansen
 0x3801afef98b7d5f162f8f16602ede37814b55df3,Smart money 0x3801,Cherrypick.xyz
 0x65b1b96bd01926d3d60dd3c8bc452f22819443a9,GMX smart money,@lookonchain
-0xe8c19db00287e3536075114b2576c70773e039bd,Andrew Kang,lookonchain
+0xe8c19db00287e3536075114b2576c70773e039bd,Andrew Kang,@lookonchain
 0x06cda431b3ef69b077e3c441f1c8837e0833e97b,institution Whale,BitcoinEmber
 0x4780771332669e51f8be04581c46e2309ba61f54,Smart dex trader 0x4780,Nansen
 0xc0c0b1e384e088cf91f198f1405ad0a04daba750,Smart dex trader 0xc0c0,Nansen
@@ -65,3 +65,11 @@
 0x41874337da92bf479380cea4ec9d6a8939391d11,Elite dex trader 0x4187,Nansen
 0xea306457f52c4d6bbd2149f627c26ba6472b22cd,Elite dex trader 0x0xea30,Nansen
 0x36fc397dfa478aa0f3d4b358e412250fbbfe6418,wNXM active buyer 0x36fc,Nansen
+0xde32e528427714d6359146d245e27ca0d3d1171e,GMX big staker,@OnchainDataNerd
+0x7b32cbbcc825e4d7b142df137fe57b4b3f908a21,$ARB whale,@OnchainDataNerd
+0xb87a436b93ffe9d75c5cfa7bacfff96430b09868,$GMX smart trader,@lookonchain
+0x8ad6429d4de0c2f311b479a1393e46f6df380ccb,$GMX smart trader,@lookonchain
+0x367f7def4c05f4ae7ae47f88e270f8c0c85a9273,profitable low hit rate trader on GMX,@lookonchain
+0xd79b937791724e47f193f67162b92cdfbf7abdfd,profitable medium hit rate trader on GMX,@lookonchain
+0x48202a51c0d5d81b3ebed55016408a0e0a0afaae,profitable medium hit rate trader on GMX,@lookonchain
+0x7b7736a2c07c4332ffad45a039d2117ae15e3f66,profitable high hit rate trader on GMX,@lookonchain

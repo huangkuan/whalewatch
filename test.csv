@@ -55,8 +55,16 @@
 0x2406a9333378e30b9581b8356bb81b4f9bdff005,Smart dex trader 0x2406
 0xa2dcb52f5cf34a84a2ebfb7d937f7051ae4c697b,Heavy dex trader 0xa2dc
 0xd54e4f8a55247487dd7c8c59f14ee5c0c2889477,Elite dex trader 0xd54e
-0x19c8a5739cd9a30308a7942af275d448fcd3eaac,$ARB holder Heavy dex trader 0x19c8,Nansen
-0x30cb2c51fc4f031fa5f326d334e1f5da00e19ab5,Elite dex trader 0x30cb,Nansen
-0x41874337da92bf479380cea4ec9d6a8939391d11,Elite dex trader 0x4187,Nansen
-0xea306457f52c4d6bbd2149f627c26ba6472b22cd,Elite dex trader 0x0xea30,Nansen
-0x36fc397dfa478aa0f3d4b358e412250fbbfe6418,wNXM active buyer 0x36fc,Nansen
+0x19c8a5739cd9a30308a7942af275d448fcd3eaac,$ARB holder Heavy dex trader 0x19c8
+0x30cb2c51fc4f031fa5f326d334e1f5da00e19ab5,Elite dex trader 0x30cb
+0x41874337da92bf479380cea4ec9d6a8939391d11,Elite dex trader 0x4187
+0xea306457f52c4d6bbd2149f627c26ba6472b22cd,Elite dex trader 0x0xea30
+0x36fc397dfa478aa0f3d4b358e412250fbbfe6418,wNXM active buyer 0x36fc
+0xde32e528427714d6359146d245e27ca0d3d1171e,GMX big staker
+0x7b32cbbcc825e4d7b142df137fe57b4b3f908a21,$ARB whale
+0xb87a436b93ffe9d75c5cfa7bacfff96430b09868,$GMX smart trader
+0x8ad6429d4de0c2f311b479a1393e46f6df380ccb,$GMX smart trader
+0x367f7def4c05f4ae7ae47f88e270f8c0c85a9273,profitable low hit rate trader on GMX
+0xd79b937791724e47f193f67162b92cdfbf7abdfd,profitable medium hit rate trader on GMX
+0x48202a51c0d5d81b3ebed55016408a0e0a0afaae,profitable medium hit rate trader on GMX
+0x7b7736a2c07c4332ffad45a039d2117ae15e3f66,profitable high hit rate trader on GMX
