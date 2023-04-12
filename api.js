@@ -29,6 +29,18 @@ export function loadLabels(ps){
     return addressMap
 }
 
+export function loadFeaturedTokens(ps){
+    const addressSet = new Set()
+    for (let p of ps){
+        const content = fs.readFileSync(p, 'utf8')
+        const addressArr = content.split('\n')
+        addressArr.forEach((obj) => {
+            addressSet.add(obj)
+        })
+    }
+    return addressSet
+}
+
 export async function getERC20Transfers(chainId, address, startBlock, pageNum=1){
     let url = ''
     if (chainId == 1){
@@ -72,8 +84,40 @@ export async function getLatestBlock(chainId){
 
 }
 
+export function groupByTransactionHash(data){
+    //groupping data by transaction hash
+    const groupedData = data.reduce((groups, item) =>{
+        const group = groups[item['hash']] || []
+        group.push(item)
+        groups[item['hash']] = group
+        return groups
+    }, {})
+    
+    return groupedData
+}
+//work in progress
+export function filterByFeaturedTokens(data, tokenSet){
+    /*
+        We check all the ERC20 transfers in a transaction
+    */
+   let featuredTokenMap = new Map()
+    for (const [k,v] of Object.entries(data)){
+        let bFeatured = false
+        for (let item of v){
+            //If any transfer involves a featured token, we inlcude them
+            if (tokenSet.has(item['tokenSymbol'])){
+                bFeatured = true
+                break
+            }
+        }
+        if (bFeatured)
+            featuredTokenMap.set(k, v)
+    }
 
-export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
+    return featuredTokenMap
+}
+
+export function formatSlackMessage(chainId, groupedData, addressLabelsMap, wallet){
     let retMessage = ""
     let addressLinkPrefix = "", txnLinkPrefix = ""
     if (chainId == 42161){
@@ -87,25 +131,16 @@ export function formatSlackMessage(chainId, data, addressLabelsMap, wallet){
         return retMessage
     }
 
-    if (data.length == 0){
-        console.log('reache the end')
+    if (groupedData.size <= 0){
+        console.log('reached the end')
         return retMessage
     }else{
-        console.log("Parsing " + data.length + " results")
+        console.log("Parsing " + groupedData.size + " results")
     }
-
+    
     retMessage += `<${addressLinkPrefix}${wallet['addr']}#tokentxns| *${wallet['label']}*> [${chainId}]\n`
 
-    //groupping data by transaction hash
-    const groupedData = data.reduce((groups, item) =>{
-        //console.log(groups)
-        const group = groups[item['hash']] || []
-        group.push(item)
-        groups[item['hash']] = group
-        return groups
-    }, {})
-
-    for (const [k,v] of Object.entries(groupedData)){
+    for (const [k,v] of groupedData){
         if (v.length != 2){
             //if a transaction does not have excatly 2 transfers, we do nothing
             for (let item of v){
