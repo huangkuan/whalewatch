@@ -79,6 +79,7 @@ async function run(chainId, addr, blockNum) {
         
     const groupedData  = groupByTransactionHash(r)
     const filteredGroupedData = filterByFeaturedTokens(groupedData,tokenSet)
+
     if (filteredGroupedData.size <=0)
         return
     let resultStr = formatSlackMessage(chainId, filteredGroupedData, addressLabelsMap, addr)
