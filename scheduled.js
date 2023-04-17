@@ -23,7 +23,7 @@ let BLOCKS_PER_10M          = 0
 let APICALL_INTERVAL        = 450 //arbiscan api has much lower and unknown threshold and often throws 429 request error
 
 if (chainId == 42161){
-    BLOCKS_PER_10M = 7000
+    BLOCKS_PER_10M = 2500 //based on arbiscan block time chart
     APICALL_INTERVAL = 650
 }else if(chainId == 1){
     BLOCKS_PER_10M = 70
