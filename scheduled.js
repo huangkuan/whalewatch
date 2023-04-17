@@ -26,7 +26,7 @@ if (chainId == 42161){
     BLOCKS_PER_10M = 2500 //based on arbiscan block time chart
     APICALL_INTERVAL = 650
 }else if(chainId == 1){
-    BLOCKS_PER_10M = 70
+    BLOCKS_PER_10M = 50
     APICALL_INTERVAL = 250
 }else{
     console.log("Unknown chain id.")
