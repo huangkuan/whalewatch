@@ -12,20 +12,19 @@ if (process.argv[3] === undefined){
 
 import { getERC20Transfers, formatSlackMessage, getLatestBlock, loadLabels, loadWatchedWallets, loadFeaturedTokens, groupByTransactionHash,filterByFeaturedTokens } from './api.js'
 import axios from 'axios'
-import * as dotenv from 'dotenv'
+import dotenv from 'dotenv'
 
 dotenv.config()
 const conf = process.env
 const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/" + conf.SLACK_FEATUREDTOKENS_WEBHOOKS
-
 const chainId	            = parseInt(process.argv[2])
 const csv_path              = process.argv[3]
 let BLOCKS_PER_10M          = 0
-let APICALL_INTERVAL        = 600 //arbiscan api has much lower and unknown threshold and often throws 429 request error
+let APICALL_INTERVAL        = 450 //arbiscan api has much lower and unknown threshold and often throws 429 request error
 
 if (chainId == 42161){
     BLOCKS_PER_10M = 7000
-    APICALL_INTERVAL = 600
+    APICALL_INTERVAL = 500
 }else if(chainId == 1){
     BLOCKS_PER_10M = 70
     APICALL_INTERVAL = 250
@@ -34,9 +33,9 @@ if (chainId == 42161){
     process.exit(-1)
 }
 
-
 const blockNum = await getLatestBlock(chainId)
 console.log(`Latest block: ${blockNum}`)
+
 
 
 if (blockNum <= 0){
@@ -69,11 +68,8 @@ for (let i=0; i<addressWatched.length; i++){
     }, i*APICALL_INTERVAL)
 }
 
-async function run(chainId, addr, blockNum) {
-    let endBlock = blockNum - BLOCKS_PER_10M
-    //console.log("Downloading blocks:" + endBlock + " -- " + blockNum)
-    
-    let r = await getERC20Transfers(chainId, addr['addr'], blockNum - BLOCKS_PER_10M)
+async function run(chainId, addr, blockNum) {    
+    let r = await getERC20Transfers(chainId, addr['addr'], blockNum - BLOCKS_PER_10M, blockNum)
     if (r.length <=0)
         return
         
@@ -83,7 +79,7 @@ async function run(chainId, addr, blockNum) {
     if (filteredGroupedData.size <=0)
         return
     let resultStr = formatSlackMessage(chainId, filteredGroupedData, addressLabelsMap, addr)
-
+    
     try{
         await axios.post(SLACK_ALERT_CHANNEL, {text: resultStr})
     }catch(e){

@@ -41,12 +41,12 @@ export function loadFeaturedTokens(ps){
     return addressSet
 }
 
-export async function getERC20Transfers(chainId, address, startBlock, pageNum=1){
+export async function getERC20Transfers(chainId, address, startBlock, endBlock, pageNum=1){
     let url = ''
     if (chainId == 1){
-        url = `${conf.ES_API_MAIN}${conf.API_ERCTRANSFER}&address=${address}&page=${pageNum}&offset=100&startblock=${startBlock}&sort=asc&apikey=${conf.ES_API_KEY}`
+        url = `${conf.ES_API_MAIN}${conf.API_ERCTRANSFER}&address=${address}&page=${pageNum}&offset=100&startblock=${startBlock}&endblock=${endBlock}&sort=asc&apikey=${conf.ES_API_KEY}`
     }else if (chainId == 42161){
-        url = `${conf.AT_API_MAIN}${conf.API_ERCTRANSFER}&address=${address}&page=${pageNum}&offset=100&startblock=${startBlock}&sort=asc&apikey=${conf.AT_API_KEY}`
+        url = `${conf.AT_API_MAIN}${conf.API_ERCTRANSFER}&address=${address}&page=${pageNum}&offset=100&startblock=${startBlock}&endblock=${endBlock}&sort=asc&apikey=${conf.AT_API_KEY}`
     }
     console.log(url)
     try{
@@ -86,6 +86,11 @@ export async function getLatestBlock(chainId){
 
 export function groupByTransactionHash(data){
     //groupping data by transaction hash
+    if (!Array.isArray(data)){
+        console.log("invalid data: " + data)
+        return []
+    }
+
     const groupedData = data.reduce((groups, item) =>{
         const group = groups[item['hash']] || []
         group.push(item)
@@ -151,11 +156,11 @@ export function formatSlackMessage(chainId, groupedData, addressLabelsMap, walle
                 if (addressFrom == wallet['addr']){
                     //send
                     addressTo   = addressLabelsMap.get(addressTo)?addressLabelsMap.get(addressTo):addressTo
-                    retMessage += `<${txnLinkPrefix}${k}| Sent> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} to ${addressTo} at ${item['timeStamp']}` + '\n'
+                    retMessage += `<${txnLinkPrefix}${k}| Sent> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} to ${addressTo} at ${item['blockNumber']}` + '\n'
                 }else if (addressTo == wallet['addr']){
                     //receive
                     addressFrom = addressLabelsMap.get(addressFrom)?addressLabelsMap.get(addressFrom):addressFrom
-                    retMessage += `<${txnLinkPrefix}${k}| Received> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} from ${addressFrom} at ${item['timeStamp']}` + '\n'
+                    retMessage += `<${txnLinkPrefix}${k}| Received> ${tokenValue.toFixed(2)} ${item['tokenSymbol']} from ${addressFrom} at ${item['blockNumber']}` + '\n'
                 }else{
                     //unknown
                 }
@@ -172,7 +177,7 @@ export function formatSlackMessage(chainId, groupedData, addressLabelsMap, walle
                 tokenDecimalB  = parseInt(v[1]['tokenDecimal'])
                 tokenValueB    = parseFloat(v[1]['value'])/Math.pow(10, tokenDecimalB)
                 exchange       = addressLabelsMap.get(v[0]['to'].toLowerCase())?addressLabelsMap.get(v[0]['to'].toLowerCase()):v[0]['to'].toLowerCase()
-                time           = v[0]['timeStamp']
+                time           = v[0]['blockNumber']
             }else{
                 tokenA         = v[1]['tokenSymbol']
                 tokenDecimalA  = parseInt(v[1]['tokenDecimal'])
@@ -181,7 +186,7 @@ export function formatSlackMessage(chainId, groupedData, addressLabelsMap, walle
                 tokenDecimalB  = parseInt(v[0]['tokenDecimal'])
                 tokenValueB    = parseFloat(v[0]['value'])/Math.pow(10, tokenDecimalB)
                 exchange       = addressLabelsMap.get(v[1]['to'].toLowerCase())?addressLabelsMap.get(v[1]['to'].toLowerCase()):v[1]['to'].toLowerCase()
-                time           = v[1]['timeStamp']
+                time           = v[1]['blockNumber']
             }
 
             retMessage += `<${txnLinkPrefix}${k}| Swapped> ${tokenValueA.toFixed(2)} ${tokenA} for ${tokenValueB.toFixed(2)} ${tokenB} via ${exchange} at ${time}\n`
