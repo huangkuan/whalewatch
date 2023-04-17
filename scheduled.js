@@ -24,7 +24,7 @@ let APICALL_INTERVAL        = 450 //arbiscan api has much lower and unknown thre
 
 if (chainId == 42161){
     BLOCKS_PER_10M = 7000
-    APICALL_INTERVAL = 500
+    APICALL_INTERVAL = 650
 }else if(chainId == 1){
     BLOCKS_PER_10M = 70
     APICALL_INTERVAL = 250
