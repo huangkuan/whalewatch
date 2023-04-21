@@ -2,11 +2,31 @@ import { getERC20Transfers, groupByTransactionHash, loadLabels, TranslateTransac
 import axios from 'axios'
 import dotenv from 'dotenv'
 
-const wallet = "0x6bA604963046512Cc0143693E9A52Faa2eB41ec2"//"0x0f89d54b02ca570de82f770d33c7b7cf7b3c3394"//"0x6bA604963046512Cc0143693E9A52Faa2eB41ec2"//process.argv[2]
-const walletLabel = "MKR whale"
-const startBlock = 70163203//17026633//70163203 
-const endBlock = 70163203//17062206//70163203 
-const chainId = 42161//1//42161
+if (isNaN(process.argv[2])){
+    console.log("Please enter a chainid")
+    process.exit(-1)
+}
+
+if (process.argv[3] === undefined){
+    console.log("Please enter a wallet address")
+    process.exit(-1)
+}
+
+if (process.argv[4] === undefined){
+    console.log("Please enter a start block")
+    process.exit(-1)
+}
+
+if (process.argv[5] === undefined){
+    console.log("Please enter an end block")
+    process.exit(-1)
+}
+
+const chainId = process.argv[2]//42161
+const wallet = process.argv[3]//"0x0f89d54b02ca570de82f770d33c7b7cf7b3c3394"
+//const walletLabel = "MKR whale"
+const startBlock = process.argv[4]
+const endBlock = process.argv[5] 
 const csv_paths = [
     './labelscsv/dex.csv', 
     './labelscsv/uniswap_arb.csv', 
@@ -26,10 +46,10 @@ async function run(cid, wallet_addr, sblock, eblock) {
         return
 
     const groupedData  = groupByTransactionHash(r)
-    console.log(groupedData)
+    //console.log(groupedData)
     let ret = TranslateTransactions(groupedData, wallet_addr, dexLabelsMap)
-    //console.log(ret)
-    let msg = formatSlackMessage(chainId, ret, addressLabelsMap, {'addr':wallet_addr, 'label':walletLabel})
-    console.log(msg)
+    console.log(ret)
+    //let msg = formatSlackMessage(chainId, ret, addressLabelsMap, {'addr':wallet_addr, 'label':walletLabel})
+    //console.log(msg)
 }
 
