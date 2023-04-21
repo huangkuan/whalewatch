@@ -10,7 +10,7 @@ if (process.argv[3] === undefined){
     process.exit(-1)
 }
 
-import { getERC20Transfers, formatSlackMessage, getLatestBlock, loadLabels, loadWatchedWallets, loadFeaturedTokens, groupByTransactionHash,filterByFeaturedTokens } from './api.js'
+import { getERC20Transfers, formatSlackMessage, getLatestBlock, loadLabels, loadWatchedWallets, loadFeaturedTokens, groupByTransactionHash,filterByFeaturedTokens, TranslateTransactions } from './api.js'
 import axios from 'axios'
 import dotenv from 'dotenv'
 
@@ -18,13 +18,13 @@ dotenv.config()
 const conf = process.env
 const SLACK_ALERT_CHANNEL   = "https://hooks.slack.com/services/" + conf.SLACK_FEATUREDTOKENS_WEBHOOKS
 const chainId	            = parseInt(process.argv[2])
-const csv_path              = process.argv[3]
+const watched_csv_path      = process.argv[3]
 let BLOCKS_PER_10M          = 0
-let APICALL_INTERVAL        = 450 //arbiscan api has much lower and unknown threshold and often throws 429 request error
+let APICALL_INTERVAL        = 500 //arbiscan api has much lower and unknown threshold and often throws 429 request error
 
 if (chainId == 42161){
     BLOCKS_PER_10M = 2500 //based on arbiscan block time chart
-    APICALL_INTERVAL = 650
+    APICALL_INTERVAL = 600
 }else if(chainId == 1){
     BLOCKS_PER_10M = 50
     APICALL_INTERVAL = 250
@@ -37,17 +37,18 @@ const blockNum = await getLatestBlock(chainId)
 console.log(`Latest block: ${blockNum}`)
 
 
-
 if (blockNum <= 0){
     console.log("Invalid block number")
     process.exit(-1)
 }
+
 const csv_paths = [
-    './labelscsv/dexcex.csv',
-    './labelscsv/uniswap_arb.csv',
+    './labelscsv/dex.csv', 
+    './labelscsv/uniswap_arb.csv', 
     './labelscsv/uniswap_eth.csv',
-    './labelscsv/watched.csv'
-  ]
+    './labelscsv/cex.csv',
+    './labelscsv/watched.csv']
+
 const tokens_paths = [
     './featured_tokens.csv'
 ]
@@ -55,11 +56,18 @@ const tokens_paths = [
 const addressLabelsMap = loadLabels(csv_paths)
 console.log("Labeled addresses loaded")
 
-const addressWatched = loadWatchedWallets(csv_path)
+const addressWatched = loadWatchedWallets(watched_csv_path)
 console.log("Watched addresses loaded")
 
 const tokenSet = loadFeaturedTokens(tokens_paths)
 console.log("Featured tokens loaded")
+
+const dexLabelsMap = loadLabels([
+    './labelscsv/dex.csv', 
+    './labelscsv/uniswap_arb.csv', 
+    './labelscsv/uniswap_eth.csv'
+])
+console.log("DEX Labeled addresses loaded")
 
 for (let i=0; i<addressWatched.length; i++){
     //To bypass the 5 requests/sec rate limit, we put a 300ms pause in between API calls
@@ -78,7 +86,10 @@ async function run(chainId, addr, blockNum) {
 
     if (filteredGroupedData.size <=0)
         return
-    let resultStr = formatSlackMessage(chainId, filteredGroupedData, addressLabelsMap, addr)
+
+    let ret = TranslateTransactions(filteredGroupedData, addr['addr'], dexLabelsMap)
+    let resultStr = formatSlackMessage(chainId, ret, addressLabelsMap, addr)
+    console.log(resultStr)
     
     try{
         await axios.post(SLACK_ALERT_CHANNEL, {text: resultStr})

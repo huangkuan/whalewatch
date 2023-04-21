@@ -3562,7 +3562,7 @@
 0xaf7ef16904b955431a29deb3c8fd2aef56cf2858,Uniswap Pool,
 0xd73fc3cef30f7d96d18d8b4bfaa7768b61805e03,Uniswap Pool,
 0x3105f19b45c0856f2e2fa7db7a3491b42b786c23,Uniswap Pool,
-0x78235d08b2ae7a3e00184329212a4d7acd2f9985,Uniswap Pool,
+0x78235d08b2ae7a3e00184329212a4d7acd2f9985,Uniswap Pool V3 LDO/USDC 2,
 0x01bd7aa442ceaaa41f336758a84f3abd1138c4e7,Uniswap Pool,
 0x7382dd276661381b26bbfd9eb107388d39971801,Uniswap Pool,
 0x71ca188049bf70fb592afbdb8ca31367a9fbc26a,Uniswap Pool,
@@ -5007,7 +5007,7 @@
 0x3809adca4811b1ec74ae60c10df212ef85eb3f19,Uniswap Pool,
 0x4d64fdedc4321a23b4dff449af0e54ddd42e9925,Uniswap Pool,
 0xa2499a5af023bf570e158946ca74b662dfaf31a5,Uniswap Pool,
-0xa3f558aebaecaf0e11ca4b2199cc5ed341edfd74,Uniswap Pool,
+0xa3f558aebaecaf0e11ca4b2199cc5ed341edfd74,Uniswap Pool V3 LDO 2,
 0x406113a76bdedb4a0333ff3d0b80c46b3035b655,Uniswap Pool,
 0x35b01400051a2c08bd90e4bee5e05b33519208c2,Uniswap Pool,
 0x391db4e0559ec5c95d96638201ad2da8764f7970,Uniswap Pool,
@@ -10153,4 +10153,5 @@
 0xcd423f3ab39a11ff1d9208b7d37df56e902c932b,Uniswap Pool PRIME,
 0x92ab871abb9d567aa276b2ce58d0203d84e0181e,Uniswap Pool Blur/USDC 2
 0x3da1313ae46132a397d90d95b1424a9a7e3e0fce,Uniswap Pool V2 CRV6,
+0xc2adda861f89bbb333c90c492cb837741916a225,Uniswap Pool v2 MKR,
 0xc36442b4a4522e871399cd717abdd847ab11fe88,Uniswap Position NFT,
