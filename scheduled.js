@@ -89,7 +89,6 @@ async function run(chainId, addr, blockNum) {
 
     let ret = TranslateTransactions(filteredGroupedData, addr['addr'], dexLabelsMap)
     let resultStr = formatSlackMessage(chainId, ret, addressLabelsMap, addr)
-    console.log(resultStr)
     
     try{
         await axios.post(SLACK_ALERT_CHANNEL, {text: resultStr})
