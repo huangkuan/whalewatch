@@ -1,5 +1,6 @@
 //The cronjob code
 //node scheduled.js -chainid 1 -addresslist xxx.csv 
+
 if (isNaN(process.argv[2])){
     console.log("Please enter a chainid")
     process.exit(-1)
@@ -10,7 +11,7 @@ if (process.argv[3] === undefined){
     process.exit(-1)
 }
 
-import { getERC20Transfers, formatSlackMessage, getLatestBlock, loadLabels, loadWatchedWallets, loadFeaturedTokens, groupByTransactionHash,filterByFeaturedTokens, TranslateTransactions } from './api.js'
+import { getERC20Transfers, formatSlackMessage, getLatestBlock, loadLabels, loadWatchedWallets, loadFeaturedTokens, groupByTransactionHash, filterByFeaturedTokens, TranslateTransactions } from './api.js'
 import axios from 'axios'
 import dotenv from 'dotenv'
 
@@ -67,10 +68,13 @@ const dexLabelsMap = loadLabels([
     './labelscsv/uniswap_arb.csv', 
     './labelscsv/uniswap_eth.csv'
 ])
-console.log("DEX Labeled addresses loaded")
+console.log("DEX addresses loaded")
+
+const cexLabelsMap = loadLabels(['./labelscsv/cex.csv'])
+console.log("CEX addresses loaded")
 
 for (let i=0; i<addressWatched.length; i++){
-    //To bypass the 5 requests/sec rate limit, we put a 300ms pause in between API calls
+    //To bypass the 5 requests/sec rate limit, we put pause in between API calls
     setTimeout(() => {
         run(chainId, addressWatched[i], blockNum)
     }, i*APICALL_INTERVAL)
@@ -87,7 +91,7 @@ async function run(chainId, addr, blockNum) {
     if (filteredGroupedData.size <=0)
         return
 
-    let ret = TranslateTransactions(filteredGroupedData, addr['addr'], dexLabelsMap)
+    let ret = TranslateTransactions(filteredGroupedData, addr['addr'], dexLabelsMap, cexLabelsMap)
     let resultStr = formatSlackMessage(chainId, ret, addressLabelsMap, addr)
     
     try{

@@ -123,7 +123,7 @@ export function filterByFeaturedTokens(data, tokenSet){
     return featuredTokenMap
 }
 
-export function TranslateTransactions(groupedData, wallet, dexlabelsMap){
+export function TranslateTransactions(groupedData, wallet, dexlabelsMap, cexlabelsMap){
     let retMap = new Map()
     if (groupedData.size <= 0){
         console.log('reached the end')
