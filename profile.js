@@ -19,7 +19,7 @@ if (process.argv[5] === undefined){
     process.exit(-1)
 }
 
-import { getERC20Transfers, groupByTransactionHash, loadLabels, TranslateTransactions } from './api.js'
+import { getERC20Transfers, groupByTransactionHash, loadLabels, TranslateTransactions, formatSlackMessage } from './api.js'
 //import axios from 'axios'
 //import dotenv from 'dotenv'
 
@@ -37,7 +37,7 @@ const csv_paths = [
 
 const dexLabelsMap = loadLabels(['./labelscsv/dex.csv', './labelscsv/uniswap_arb.csv', './labelscsv/uniswap_eth.csv'])
 const cexLabelsMap = loadLabels(['./labelscsv/cex.csv'])
-//const addressLabelsMap = loadLabels(csv_paths)
+const addressLabelsMap = loadLabels(csv_paths)
 
 run(chainId, wallet, startBlock, endBlock)
 
@@ -47,7 +47,11 @@ async function run(cid, wallet_addr, sblock, eblock) {
         return
 
     const groupedData  = groupByTransactionHash(r)
+    //console.log(groupedData)
     let ret = TranslateTransactions(groupedData, wallet_addr, dexLabelsMap)
     console.log(ret)
+    let resultStr = formatSlackMessage(chainId, ret, addressLabelsMap, {'addr':wallet_addr, 'label':'test'})
+    console.log(resultStr)
 }
+
 

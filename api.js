@@ -123,78 +123,98 @@ export function filterByFeaturedTokens(data, tokenSet){
     return featuredTokenMap
 }
 
+//Nested function
+function hasDualDirection(w, erc20Transfers){
+    //To be considered as a swap, the ERC20 transfers in a trancation need to have both directions.
+    let hasFrom = false, hasTo = false
+    for (let obj of erc20Transfers){
+        if (obj['from'].toLowerCase() == w)
+            hasFrom = true
+        if (obj['to'].toLowerCase() == w)
+            hasTo = true
+    }
+    return hasFrom && hasTo
+}
+
 export function TranslateTransactions(groupedData, wallet, dexlabelsMap, cexlabelsMap){
     let retMap = new Map()
     if (groupedData.size <= 0){
         console.log('reached the end')
         return retMap
     }
-
     console.log("Translating " + groupedData.size + " results")
     let w = wallet.toLowerCase()
-
     for (const [k,v] of groupedData){
         let groupResult = new Array()
-        let transactionType = "transfer" //"trade", "transfer"
-        let transactionDirection = "swap" //"sell", "buy", "send", "receive", "swap"    
-        let tokenCombinedValueA = 0, tokenCombinedValueB = 0, tokenA = "", tokenB = "", tokenDecimalA = 0, tokenDecimalB = 0, blockNumber = 0
-        /*
-            Sending an ERC20 token to a wallet or swapping tokens always happen in two separate transactions.
-            In the below code, if a swap happens across multiple DEXes(such as trading on 0x) or multiple pools in the same DEX (such as Uniswap),
-            we will aggregate the value of the swapped tokens.
 
-            We will update the code if new patterns emerge.
-        */
-        for (let obj of v){
-            let from = obj['from'].toLowerCase()
-            let to = obj['to'].toLowerCase()
-            if (!dexlabelsMap.get(from) && !dexlabelsMap.get(to)){
-                //If neither address is a dex address, we won't need to do any work to aggregate the value of tokens.
-                //We will address "transfer to a CEX" shortly after the alpha version is released
-                transactionType         = "transfer"
-                transactionDirection    = (from == w)?"send":"receive" //from the perspective of the wallet holder
+        let tokenCombinedValueA = 0, tokenCombinedValueB = 0, tokenA = '', tokenB = '', tokenDecimalA = 0, tokenDecimalB = 0, blockNumber = 0
+        if (!hasDualDirection(w, v)){
+            for (let obj of v){
+                let from = obj['from'].toLowerCase()
+                let to = obj['to'].toLowerCase()
+                blockNumber = parseInt(obj['blockNumber'])
                 groupResult.push({
-                    "blockNumber"   : parseInt(obj['blockNumber']),
+                    "blockNumber"   : blockNumber,
                     "from"          : from,
                     "to"            : to,
-                    "type"          : transactionType,
-                    "direction"     : transactionDirection,
+                    "type"          : "transfer",
+                    "direction"     : (from == w)?"send":"receive",
                     "tokenA"        : obj['tokenSymbol'],
                     "tokenDecimalA" : parseInt(obj['tokenDecimal']),
                     "tokenValueA"   : parseFloat(obj['value'])/Math.pow(10, parseInt(obj['tokenDecimal']))
+                })            
+            }
+        }else{
+            for (let obj of v){
+                let from = obj['from'].toLowerCase()
+                let to = obj['to'].toLowerCase()
+                blockNumber = parseInt(obj['blockNumber'])
+                if (!dexlabelsMap.get(from) && !dexlabelsMap.get(to)){
+                    //If neither address is a dex address, we won't need to do any work to aggregate the value of tokens.
+                    //It is a transfer
+                    groupResult.push({
+                        "blockNumber"   : blockNumber,
+                        "from"          : from,
+                        "to"            : to,
+                        "type"          : "transfer",
+                        "direction"     : (from == w)?"send":"receive",//from the perspective of the wallet holder
+                        "tokenA"        : obj['tokenSymbol'],
+                        "tokenDecimalA" : parseInt(obj['tokenDecimal']),
+                        "tokenValueA"   : parseFloat(obj['value'])/Math.pow(10, parseInt(obj['tokenDecimal']))
+                    })
+                    continue
+                }
+
+                if (from == w){
+                    tokenA              = obj['tokenSymbol']
+                    tokenDecimalA       = parseInt(obj['tokenDecimal'])
+                    tokenCombinedValueA     += parseFloat(obj['value'])/Math.pow(10, tokenDecimalA)
+                }else{
+                    tokenB              = obj['tokenSymbol']
+                    tokenDecimalB       = parseInt(obj['tokenDecimal'])
+                    tokenCombinedValueB     += parseFloat(obj['value'])/Math.pow(10, tokenDecimalB)
+                }
+            }
+
+            //After combining the values of the separated transfers, we add them to the groupResult
+            if (tokenA != '' && tokenB !='' && tokenDecimalA !=0 && tokenDecimalB !=0){
+                groupResult.push({
+                    "blockNumber": blockNumber,
+                    "type"       : "trade",
+                    "direction"  : "swap",
+                    "tokenA"        : tokenA,
+                    "tokenValueA"   : tokenCombinedValueA,
+                    "tokenDecimalA" : tokenDecimalA,
+                    "tokenB"        : tokenB,
+                    "tokenValueB"   : tokenCombinedValueB,
+                    "tokenDecimalB" : tokenDecimalB,
+                    "exchange"     : "DEX"
                 })
-                continue
             }
 
-            transactionType         = "trade"
-            transactionDirection    = "swap" 
-            blockNumber             = parseInt(obj['blockNumber'])
-            if (from == w){
-                tokenA          = obj['tokenSymbol']
-                tokenDecimalA   = parseInt(obj['tokenDecimal'])
-                tokenCombinedValueA     += parseFloat(obj['value'])/Math.pow(10, tokenDecimalA)
-            }else{
-                tokenB          = obj['tokenSymbol']
-                tokenDecimalB   = parseInt(obj['tokenDecimal'])
-                tokenCombinedValueB     += parseFloat(obj['value'])/Math.pow(10, tokenDecimalB)
-            }
-        }
-
-        if (transactionType == "trade"){
-            groupResult.push({
-                "blockNumber"   : blockNumber,
-                "type"          : transactionType,
-                "direction"     : transactionDirection,
-                "tokenA"        : tokenA,
-                "tokenValueA"   : tokenCombinedValueA,
-                "tokenDecimalA" : tokenDecimalA,
-                "tokenB"        : tokenB,
-                "tokenValueB"   : tokenCombinedValueB,
-                "tokenDecimalB" : tokenDecimalB,
-                "exchange"     : "DEX"
-            })
         }
         retMap.set(k, groupResult)
+    
     }
     return retMap
     
@@ -223,16 +243,16 @@ export function formatSlackMessage(chainId, groupedData, addressLabelsMap, walle
     for (const [k,v] of groupedData){
         for (let item of v){
             const from = (addressLabelsMap.get(item['from']))?addressLabelsMap.get(item['from']):item['from']
-            const to = (addressLabelsMap.get(item['to']))?addressLabelsMap.get(item['from']):item['to']
+            const to = (addressLabelsMap.get(item['to']))?addressLabelsMap.get(item['to']):item['to']
 
             if (item['type'] == 'transfer'){
                 if (item['direction'] == 'send')
-                    retMessage += `<${txnLinkPrefix}${k}| Sent> ${item['tokenValueA'].toFixed(2)} ${item['tokenA']} to ${to} at block ${item['blockNumber']} \n`
+                    retMessage += `<${txnLinkPrefix}${k}| Sent> ${item['tokenValueA'].toFixed(4)} ${item['tokenA']} to ${to} at block ${item['blockNumber']} \n`
                 else
-                    retMessage += `<${txnLinkPrefix}${k}| Received> ${item['tokenValueA'].toFixed(2)} ${item['tokenA']} from ${from} at block ${item['blockNumber']} \n`
+                    retMessage += `<${txnLinkPrefix}${k}| Received> ${item['tokenValueA'].toFixed(4)} ${item['tokenA']} from ${from} at block ${item['blockNumber']} \n`
 
             }else if (item['type'] == 'trade')
-                retMessage += `<${txnLinkPrefix}${k}| Swapped> ${item['tokenValueA'].toFixed(2)} ${item['tokenA']} for ${item['tokenValueB'].toFixed(2)} ${item['tokenB']} via ${item['exchange']} at block ${item['blockNumber']} \n`
+                retMessage += `<${txnLinkPrefix}${k}| Swapped> ${item['tokenValueA'].toFixed(4)} ${item['tokenA']} for ${item['tokenValueB'].toFixed(4)} ${item['tokenB']} via ${item['exchange']} at block ${item['blockNumber']} \n`
             else
                 retMessage += ""
         }
